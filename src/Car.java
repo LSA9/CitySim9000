@@ -17,7 +17,7 @@ public class Car {
     public Car(){
     }
     
-    public Car(int carNum, Random r){
+    public Car(int carNum, Random r){ 
         carNumber = carNum;
         location = new Location();
         rand = r;

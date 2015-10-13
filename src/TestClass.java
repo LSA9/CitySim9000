@@ -47,11 +47,18 @@ public class TestClass {
 		assertEquals("Driver 1 heading From  to here via street", testString);
 	}
 
+	//This test ensures that the method that randomly selects a direction for a moving 
+	//car selects the correct numbers
 	@Test
 	public void testDetermineMove(){
-		Car c = new Car();
-		int number = c.determineMove();
-		assertTrue(number>-1);
+		int number;
+		Random rand = Mockito.mock(Random.class);
+		Car c = new Car(0,rand);
+		
+		//Test that method returns 0
+		when(rand.nextInt()).thenReturn(0);
+		number = c.determineMove();
+		assertTrue(number==0);	
 	}
 	
 	//Tests the getter and setter of the StringMaker class
@@ -112,12 +119,32 @@ public class TestClass {
 		String s;
 		Location mockLocation = Mockito.mock(Location.class);
 
-		//Normal test to test the base case where all values that are passed to the Mover object
+		//Normal tests to test the base case where all values that are passed to the Mover object
 		//are valid inputs
 		when(mockLocation.getLocationName()).thenReturn("University");
 		s = m.moveLocation(mockLocation, 0, 1);
 		assertEquals(s,"Coffee Shop");
-
+		
+		when(mockLocation.getLocationName()).thenReturn("Mall");
+		s = m.moveLocation(mockLocation, 1, 1);
+		assertEquals(s,"Coffee Shop");
+		
+		when(mockLocation.getLocationName()).thenReturn("Bookstore");
+		s = m.moveLocation(mockLocation, 0, 0);
+		assertEquals(s,"Outside City");
+		
+		when(mockLocation.getLocationName()).thenReturn("University");
+		s = m.moveLocation(mockLocation, 1, 0);
+		assertEquals(s,"Bookstore");
+		
+		when(mockLocation.getLocationName()).thenReturn("Coffee Shop");
+		s = m.moveLocation(mockLocation, 0, 0);
+		assertEquals(s,"Outside City");
+		
+		when(mockLocation.getLocationName()).thenReturn("Coffee Shop");
+		s = m.moveLocation(mockLocation, 1, 0);
+		assertEquals(s,"Mall");
+		
 		//Test to see if the car will move from the mall to the bookstore after receiving a 0.
 		//Also in this test, the Iterator is incorrectly switch to see that it should not matter in this
 		//case.
@@ -165,6 +192,8 @@ public class TestClass {
 		s = occ.checker(maker, 0);
 		assertEquals(s,"Driver 0 heading From Mall to Coffee via Fifth Ave.");
 	}
+	
+
 
 
 

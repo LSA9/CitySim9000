@@ -19,7 +19,6 @@ public class CitySim9000 {
         int seed=0;
         Random rand;
         InputReciever scanCheck = new InputReciever();
-        Scanner inscan = new Scanner(System.in);
         int inchecker=0;
 
         System.out.println("Welcome to City Sim 9000!");
@@ -27,7 +26,7 @@ public class CitySim9000 {
         
         //reads for input and checks if valid int
         try{
-        	seed = inscan.nextInt();
+        	seed = Integer.parseInt(args[0]);
         }catch(InputMismatchException exception){
         	System.out.println("Invalid Input!");
         	System.exit(0);
