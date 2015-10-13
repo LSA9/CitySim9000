@@ -50,13 +50,26 @@ public class Mover {
 			if(whereToMove==0 && firstIteration==0){
 				location.setLocationName("Outside City");
 				s = "Outside City";
-				location.setHowGotThere("Fifth St.");
+				location.setHowGotThere("Fifth Ave.");
 			}
 			else{
 				location.setLocationName("Mall");
 				s = "Mall";
 				location.setHowGotThere("Meow St.");
 			}    				
+		}
+		else if(location.getLocationName().equals("Outside City")){
+			location.setPastLocation("Outside City");
+			if(whereToMove==0){
+				location.setLocationName("Mall");
+				s= "Mall";
+				location.setHowGotThere("Fourth Ave.");
+			}
+			else{
+				location.setLocationName("University");
+				s= "University";
+				location.setHowGotThere("Fifth Ave.");
+			}
 		}
 		return s;
 	}
