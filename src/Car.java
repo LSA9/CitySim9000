@@ -35,13 +35,13 @@ public class Car {
     	int firstIteration = 1;
     	String moveInfo;
 		
-		while(!location.getLocationName().equals("Outside City")){
+		while(!location.getLocationName().equals("Outside City") || firstIteration!=0){
 			whereToMove = determineMove();
 			
 			mover.moveLocation(location,whereToMove,firstIteration);
 			
 			maker.toString(carNumber,location);
-			outsideCityChecker.checker(maker,carNumber);
+			outsideCityChecker.checker(maker,carNumber,firstIteration);
 			System.out.println(maker.getString());
 			
 			firstIteration=0;
@@ -57,3 +57,4 @@ public class Car {
 
 
 }
+
