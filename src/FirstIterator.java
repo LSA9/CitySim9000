@@ -8,7 +8,7 @@ public class FirstIterator {
     public String getStartingLocation(Location location, Random rand){
         int locationNumber;
         String s=null;
-        locationNumber = rand.nextInt(4);
+        locationNumber = rand.nextInt(5);
         
         //Setting the initial location of the car by its English
         //name rather than its numerical representation
@@ -27,6 +27,10 @@ public class FirstIterator {
         else if(locationNumber==3){
         	location.setLocationName("University");
         	s = "University";
+        }
+        else if(locationNumber==4){
+        	location.setLocationName("Outside City");
+        	s = "Outside City";
         }
         
         return s;
