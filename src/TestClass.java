@@ -86,29 +86,29 @@ public class TestClass {
 		Random rand = Mockito.mock(Random.class);
 		
 		//Test Mall when rand returns 0
-		when(rand.nextInt(4)).thenReturn(0);
+		when(rand.nextInt(5)).thenReturn(0);
 		s = firstIterator.getStartingLocation(location, rand);
 		assertEquals(s,"Mall");
 		
 		//Test Bookstore when rand returns 1
-		when(rand.nextInt(4)).thenReturn(1);
+		when(rand.nextInt(5)).thenReturn(1);
 		s = firstIterator.getStartingLocation(location, rand);
 		assertEquals(s,"Bookstore");
 		
 		//Test Coffee shop when rand returns 2
-		when(rand.nextInt(4)).thenReturn(2);
+		when(rand.nextInt(5)).thenReturn(2);
 		s = firstIterator.getStartingLocation(location, rand);
 		assertEquals(s,"Coffee Shop");
 		
 		//Test University when rand returns 3
-		when(rand.nextInt(4)).thenReturn(3);
+		when(rand.nextInt(5)).thenReturn(3);
 		s = firstIterator.getStartingLocation(location, rand);
 		assertEquals(s,"University");
 		
-		//Test null when rand returns a number greater than 4
-		when(rand.nextInt(4)).thenReturn(4);
+		//Test Outside City when rand returns a number greater than 4
+		when(rand.nextInt(5)).thenReturn(4);
 		s = firstIterator.getStartingLocation(location, rand);
-		assertNull(s);
+		assertEquals(s, "Outside City");
 	}
 
 	//Tests the Mover class which determines where the car will go next based off of the past
@@ -169,7 +169,7 @@ public class TestClass {
 		location.setLocationName("Zoo");
 		assertEquals(location.getLocationName(),"Zoo");
 		location.setHowGotThere("Zoo");
-		assertEquals(location.getHowGotThere(),"Zoo");
+		assertEquals(location.getHowGotThere(),"Zoo"); 
 	}
 
 	//This tests the OutsideCityChecker object which will ensure that if the car goes out of the
@@ -184,20 +184,19 @@ public class TestClass {
 		OutsideCityChecker occ = new OutsideCityChecker();
 		StringMaker maker = Mockito.mock(StringMaker.class);
 		when(maker.getString()).thenReturn("Driver 0 heading From Mall to Outside City via Fifth Ave.");
-		s = occ.checker(maker, 0);
+		s = occ.checker(maker, 0 , 0);
 		assertEquals(s,"Driver 0 has left the city!");
 
 		//Checks the output string if the driver is still in tie city bounds=
 		when(maker.getString()).thenReturn("Driver 0 heading From Mall to Coffee via Fifth Ave.");
-		s = occ.checker(maker, 0);
+		s = occ.checker(maker, 0, 0);
+		assertEquals(s,"Driver 0 heading From Mall to Coffee via Fifth Ave.");
+		
+		//Checks that the output string is normal if coming from Outside city on
+		//the first iteration
+		when(maker.getString()).thenReturn("Driver 0 heading From Mall to Coffee via Fifth Ave.");
+		s = occ.checker(maker, 0, 0);
 		assertEquals(s,"Driver 0 heading From Mall to Coffee via Fifth Ave.");
 	}
-	
-
-
-
-
-
-
 
 }
